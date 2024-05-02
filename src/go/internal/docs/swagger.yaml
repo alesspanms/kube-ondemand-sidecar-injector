@@ -1,0 +1,176 @@
+definitions:
+  injectormodels.ClearSidecarPayload:
+    properties:
+      DeploymentName:
+        type: string
+      Namespace:
+        type: string
+      SidecarContainerName:
+        type: string
+    type: object
+  injectormodels.Deployment:
+    properties:
+      Name:
+        type: string
+      Namespace:
+        type: string
+      VolumeNames:
+        items:
+          type: string
+        type: array
+    type: object
+  injectormodels.GetDeploymentsPayload:
+    properties:
+      Filtered:
+        type: boolean
+      Namespace:
+        type: string
+    type: object
+  injectormodels.GetSingleDeploymentPayload:
+    properties:
+      DeploymentName:
+        type: string
+      Namespace:
+        type: string
+    type: object
+  injectormodels.SetSidecarPayload:
+    properties:
+      Command:
+        items:
+          type: string
+        type: array
+      DeploymentName:
+        type: string
+      Namespace:
+        type: string
+      SidecarContainerName:
+        type: string
+      SidecarImage:
+        type: string
+      VolumeMounts:
+        items:
+          $ref: '#/definitions/injectormodels.Volume'
+        type: array
+    type: object
+  injectormodels.Volume:
+    properties:
+      MountPath:
+        type: string
+      Name:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Kubernetes OnDemand Sidecar Injector API
+  version: "1.0"
+paths:
+  /api/injector/ClearSidecar:
+    post:
+      consumes:
+      - application/json
+      description: Remove the sidecar from a given deployment
+      parameters:
+      - description: ClearSidecarPayload type
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/injectormodels.ClearSidecarPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/injectormodels.Deployment'
+      security:
+      - ApiKeyAuth: []
+      summary: Remove the sidecar
+      tags:
+      - injector
+  /api/injector/GetDeployments:
+    post:
+      consumes:
+      - application/json
+      description: Get deployments for a given namespace or all namespaces
+      parameters:
+      - description: GetDeploymentsPayload type
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/injectormodels.GetDeploymentsPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/injectormodels.Deployment'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Obtain a list of Deployment objects
+      tags:
+      - injector
+  /api/injector/GetSingleDeployment:
+    post:
+      consumes:
+      - application/json
+      description: Get deployments for a given namespace and name
+      parameters:
+      - description: GetSingleDeploymentPayload type
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/injectormodels.GetSingleDeploymentPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/injectormodels.Deployment'
+      security:
+      - ApiKeyAuth: []
+      summary: Obtain a specific Deployment objects
+      tags:
+      - injector
+  /api/injector/SetSidecar:
+    post:
+      consumes:
+      - application/json
+      description: Set the sidecar for a given deployment
+      parameters:
+      - description: SetSidecarPayload type
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/injectormodels.SetSidecarPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/injectormodels.Deployment'
+      security:
+      - ApiKeyAuth: []
+      summary: Activate the sidecar
+      tags:
+      - injector
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: X-API-KEY
+    type: apiKey
+swagger: "2.0"

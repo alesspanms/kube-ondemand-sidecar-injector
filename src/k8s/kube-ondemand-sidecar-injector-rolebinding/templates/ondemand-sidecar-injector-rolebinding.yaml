@@ -1,0 +1,12 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ondemand-sidecar-injector-rolebinding
+subjects:
+- kind: User
+  name:  "system:serviceaccount:{{ .Values.kubeOndemandSidecarInjectorReleaseNamespace }}:{{ .Values.kubeOndemandSidecarInjectorServiceName }}"
+  apiGroup: "rbac.authorization.k8s.io"
+roleRef:
+  kind: ClusterRole
+  name: ondemand-sidecar-injector-role
+  apiGroup: "rbac.authorization.k8s.io"
