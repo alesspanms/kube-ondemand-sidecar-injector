@@ -161,8 +161,9 @@ func (kc *KubeClient) SetSidecar(payload *injectormodels.SetSidecarPayload) (res
 	kc.logger.Log().Info("SetSidecar - Found Deployment", zap.String("name", deployment.Spec.Template.Name), zap.String("namespace", deployment.Namespace))
 
 	v1Container := corev1.Container{
-		Name:  kc.sidecarNamePrefix + payload.SidecarContainerName,
-		Image: payload.SidecarImage,
+		Name:         kc.sidecarNamePrefix + payload.SidecarContainerName,
+		Image:        payload.SidecarImage,
+		VolumeMounts: make([]corev1.VolumeMount, len(payload.VolumeMounts)),
 	}
 
 	if payload.Command != nil && len(payload.Command) > 0 {
