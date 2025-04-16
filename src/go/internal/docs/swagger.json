@@ -4,8 +4,8 @@
         "title": "Kubernetes OnDemand Sidecar Injector API",
         "contact": {},
         "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            "name": "MIT",
+            "url": "https://mit-license.org/"
         },
         "version": "1.0"
     },
@@ -173,6 +173,11 @@
     "definitions": {
         "injectormodels.ClearSidecarPayload": {
             "type": "object",
+            "required": [
+                "DeploymentName",
+                "Namespace",
+                "SidecarContainerName"
+            ],
             "properties": {
                 "DeploymentName": {
                     "type": "string"
@@ -204,7 +209,13 @@
         },
         "injectormodels.GetDeploymentsPayload": {
             "type": "object",
+            "required": [
+                "Namespace"
+            ],
             "properties": {
+                "DeploymentNameSubstringPattern": {
+                    "type": "string"
+                },
                 "Filtered": {
                     "type": "boolean"
                 },
@@ -215,6 +226,10 @@
         },
         "injectormodels.GetSingleDeploymentPayload": {
             "type": "object",
+            "required": [
+                "DeploymentName",
+                "Namespace"
+            ],
             "properties": {
                 "DeploymentName": {
                     "type": "string"
@@ -226,6 +241,12 @@
         },
         "injectormodels.SetSidecarPayload": {
             "type": "object",
+            "required": [
+                "DeploymentName",
+                "Namespace",
+                "SidecarContainerName",
+                "SidecarImage"
+            ],
             "properties": {
                 "Command": {
                     "type": "array",
@@ -255,6 +276,10 @@
         },
         "injectormodels.Volume": {
             "type": "object",
+            "required": [
+                "MountPath",
+                "Name"
+            ],
             "properties": {
                 "MountPath": {
                     "type": "string"
