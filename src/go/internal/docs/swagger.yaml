@@ -7,6 +7,10 @@ definitions:
         type: string
       SidecarContainerName:
         type: string
+    required:
+    - DeploymentName
+    - Namespace
+    - SidecarContainerName
     type: object
   injectormodels.Deployment:
     properties:
@@ -21,10 +25,14 @@ definitions:
     type: object
   injectormodels.GetDeploymentsPayload:
     properties:
+      DeploymentNameSubstringPattern:
+        type: string
       Filtered:
         type: boolean
       Namespace:
         type: string
+    required:
+    - Namespace
     type: object
   injectormodels.GetSingleDeploymentPayload:
     properties:
@@ -32,6 +40,9 @@ definitions:
         type: string
       Namespace:
         type: string
+    required:
+    - DeploymentName
+    - Namespace
     type: object
   injectormodels.SetSidecarPayload:
     properties:
@@ -51,6 +62,11 @@ definitions:
         items:
           $ref: '#/definitions/injectormodels.Volume'
         type: array
+    required:
+    - DeploymentName
+    - Namespace
+    - SidecarContainerName
+    - SidecarImage
     type: object
   injectormodels.Volume:
     properties:
@@ -58,6 +74,9 @@ definitions:
         type: string
       Name:
         type: string
+    required:
+    - MountPath
+    - Name
     type: object
 externalDocs:
   description: OpenAPI
@@ -65,8 +84,8 @@ externalDocs:
 info:
   contact: {}
   license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: MIT
+    url: https://mit-license.org/
   title: Kubernetes OnDemand Sidecar Injector API
   version: "1.0"
 paths:

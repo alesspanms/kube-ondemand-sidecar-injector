@@ -11,8 +11,8 @@ const docTemplate = `{
         "title": "{{.Title}}",
         "contact": {},
         "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            "name": "MIT",
+            "url": "https://mit-license.org/"
         },
         "version": "{{.Version}}"
     },
@@ -182,6 +182,11 @@ const docTemplate = `{
     "definitions": {
         "injectormodels.ClearSidecarPayload": {
             "type": "object",
+            "required": [
+                "DeploymentName",
+                "Namespace",
+                "SidecarContainerName"
+            ],
             "properties": {
                 "DeploymentName": {
                     "type": "string"
@@ -213,7 +218,13 @@ const docTemplate = `{
         },
         "injectormodels.GetDeploymentsPayload": {
             "type": "object",
+            "required": [
+                "Namespace"
+            ],
             "properties": {
+                "DeploymentNameSubstringPattern": {
+                    "type": "string"
+                },
                 "Filtered": {
                     "type": "boolean"
                 },
@@ -224,6 +235,10 @@ const docTemplate = `{
         },
         "injectormodels.GetSingleDeploymentPayload": {
             "type": "object",
+            "required": [
+                "DeploymentName",
+                "Namespace"
+            ],
             "properties": {
                 "DeploymentName": {
                     "type": "string"
@@ -235,6 +250,12 @@ const docTemplate = `{
         },
         "injectormodels.SetSidecarPayload": {
             "type": "object",
+            "required": [
+                "DeploymentName",
+                "Namespace",
+                "SidecarContainerName",
+                "SidecarImage"
+            ],
             "properties": {
                 "Command": {
                     "type": "array",
@@ -264,6 +285,10 @@ const docTemplate = `{
         },
         "injectormodels.Volume": {
             "type": "object",
+            "required": [
+                "MountPath",
+                "Name"
+            ],
             "properties": {
                 "MountPath": {
                     "type": "string"
