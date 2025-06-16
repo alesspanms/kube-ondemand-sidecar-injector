@@ -1,5 +1,5 @@
 # Start from a minimal base image containing the Go runtime
-FROM golang:1.22-bookworm AS build
+FROM golang:1.24-bookworm AS build
 
 ARG GITHUB_REPOSITORY
 
