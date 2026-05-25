@@ -10,7 +10,7 @@
 			"helm": "latest",
 			"minikube": "latest"
 		},
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+		"ghcr.io/devcontainers/features/docker-in-docker:3": {
 			"installDockerBuildx": true,
 			"installDockerComposeSwitch": true,
 			"version": "latest",
